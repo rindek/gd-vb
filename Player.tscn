@@ -1,13 +1,13 @@
 [gd_scene load_steps=23 format=2]
 
-[ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Character_1.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 15.7904
 height = 25.8461
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "Idle"
 length = 0.8
 loop = true
@@ -24,7 +24,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 resource_name = "JumpEnd"
 length = 0.6
 tracks/0/type = "value"
@@ -85,8 +85,7 @@ tracks/1/keys = {
 "values": [ true, true ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "RunRight"
+[sub_resource type="Animation" id=6]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -123,42 +122,42 @@ animation = "JumpEnd"
 [sub_resource type="AnimationNodeAnimation" id=9]
 animation = "JumpStart"
 
-[sub_resource type="AnimationNodeAnimation" id=20]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "RunLeft"
 
-[sub_resource type="AnimationNodeAnimation" id=21]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "RunRight"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=22]
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
 
-[sub_resource type="AnimationNodeStateMachine" id=17]
+[sub_resource type="AnimationNodeStateMachine" id=19]
 states/Idle/node = SubResource( 7 )
 states/Idle/position = Vector2( 452.125, 178.75 )
 states/JumpEnd/node = SubResource( 8 )
 states/JumpEnd/position = Vector2( 811.688, 233 )
 states/JumpStart/node = SubResource( 9 )
 states/JumpStart/position = Vector2( 812, 82.5 )
-states/RunLeft/node = SubResource( 20 )
+states/RunLeft/node = SubResource( 10 )
 states/RunLeft/position = Vector2( 155.5, 178.375 )
-states/RunRight/node = SubResource( 21 )
+states/RunRight/node = SubResource( 11 )
 states/RunRight/position = Vector2( 173.25, 51.75 )
-transitions = [ "Idle", "JumpStart", SubResource( 13 ), "JumpEnd", "Idle", SubResource( 14 ), "JumpStart", "JumpEnd", SubResource( 19 ), "Idle", "RunRight", SubResource( 22 ), "RunRight", "Idle", SubResource( 23 ), "Idle", "RunLeft", SubResource( 24 ), "RunLeft", "Idle", SubResource( 25 ) ]
+transitions = [ "Idle", "JumpStart", SubResource( 12 ), "JumpEnd", "Idle", SubResource( 13 ), "JumpStart", "JumpEnd", SubResource( 14 ), "Idle", "RunRight", SubResource( 15 ), "RunRight", "Idle", SubResource( 16 ), "Idle", "RunLeft", SubResource( 17 ), "RunLeft", "Idle", SubResource( 18 ) ]
 start_node = "Idle"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=18]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=20]
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -179,17 +178,16 @@ centered = false
 flip_h = true
 vframes = 4
 hframes = 6
-frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Idle = SubResource( 3 )
-anims/JumpEnd = SubResource( 6 )
+anims/Idle = SubResource( 2 )
+anims/JumpEnd = SubResource( 3 )
 anims/JumpStart = SubResource( 4 )
 anims/RunLeft = SubResource( 5 )
-anims/RunRight = SubResource( 2 )
+anims/RunRight = SubResource( 6 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 17 )
+tree_root = SubResource( 19 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 18 )
+parameters/playback = SubResource( 20 )
