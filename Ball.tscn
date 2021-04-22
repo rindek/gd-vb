@@ -9,9 +9,11 @@ bounce = 0.4
 [sub_resource type="CircleShape2D" id=2]
 radius = 22.0
 
-[node name="RigidBody2D" type="RigidBody2D"]
+[node name="RigidBody2D" type="RigidBody2D" groups=[
+"ball",
+]]
 physics_material_override = SubResource( 1 )
-gravity_scale = 3.0
+gravity_scale = 0.0
 contacts_reported = 2
 contact_monitor = true
 script = ExtResource( 2 )
@@ -22,3 +24,5 @@ texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_RigidBody2D_body_entered"]

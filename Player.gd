@@ -5,6 +5,8 @@ var velocity = Vector2.ZERO
 const GRAVITY = 600
 const JUMP_SPEED = -400
 var jumping = false
+var touched_times = 0
+const BALL = preload("Ball.tscn")
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -45,3 +47,16 @@ func _physics_process(delta):
     jumping = false
     animationState.travel("JumpEnd")
     
+func ball_touched(ball):
+  touched_times += 1
+  if (touched_times > 3):
+    get_node("/root/World").reset()
+    reset_touched()
+
+    
+func reset_touched():
+  touched_times = 0
+
+func _on_StaticBody_body_entered(body):
+ if body.is_in_group("ball"):
+    body.set_gravity()

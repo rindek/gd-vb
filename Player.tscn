@@ -161,11 +161,11 @@ start_node = "Idle"
 friction = 0.5
 
 [sub_resource type="CapsuleShape2D" id=22]
-radius = 19.4693
-height = 20.1499
+radius = 30.0
+height = 5.5
 
 [sub_resource type="RectangleShape2D" id=23]
-extents = Vector2( 30.0493, 10 )
+extents = Vector2( 23.9208, 1.22312 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -192,15 +192,20 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 20 )
 
-[node name="StaticBody" type="RigidBody2D" parent="."]
+[node name="StaticBody" type="RigidBody2D" parent="." groups=[
+"player",
+]]
 mode = 3
 physics_material_override = SubResource( 21 )
+contacts_reported = 1
+contact_monitor = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody"]
-position = Vector2( 0, -42 )
-rotation = 1.5708
+position = Vector2( 0, -28 )
 shape = SubResource( 22 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 4.8994 )
+position = Vector2( 0, 13.75 )
 shape = SubResource( 23 )
+
+[connection signal="body_entered" from="StaticBody" to="." method="_on_StaticBody_body_entered"]
