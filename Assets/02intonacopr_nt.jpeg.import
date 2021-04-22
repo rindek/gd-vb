@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ball.png-9a4ca347acb7532f6ae347744a6b04f7.stex"
+path="res://.import/02intonacopr_nt.jpeg-55912274a5dfb1c79be0b7de159108a1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ball.png"
-dest_files=[ "res://.import/ball.png-9a4ca347acb7532f6ae347744a6b04f7.stex" ]
+source_file="res://Assets/02intonacopr_nt.jpeg"
+dest_files=[ "res://.import/02intonacopr_nt.jpeg-55912274a5dfb1c79be0b7de159108a1.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=1
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

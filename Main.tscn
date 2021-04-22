@@ -1,69 +1,60 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
 [ext_resource path="res://Ball.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/02intonacopr_nt.jpeg" type="Texture" id=4]
+[ext_resource path="res://Assets/metal_pole_rusty_01.png" type="Texture" id=5]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 587.945, 10 )
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 252, 10 )
 
-[sub_resource type="PhysicsMaterial" id=2]
-rough = true
-bounce = 0.4
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 252, 10 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8, 85 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2( 84.709, 582.9 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="Floor" type="Sprite" parent="."]
+position = Vector2( 512, 590 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1024, 20 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 407.327, 2.21509 )
-shape = SubResource( 1 )
+[node name="P1Floor" type="StaticBody2D" parent="Floor"]
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2( 83.8611, -8.9328 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/P1Floor"]
+position = Vector2( -260, 0 )
+shape = SubResource( 3 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2( 407.327, 2.21509 )
-shape = SubResource( 1 )
+[node name="P2Floor" type="StaticBody2D" parent="Floor"]
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2( -7.71187, 560.855 )
-rotation = -1.5708
-physics_material_override = SubResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/P2Floor"]
+position = Vector2( 260, 0 )
+shape = SubResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2( 407.327, 2.21509 )
-shape = SubResource( 1 )
+[node name="NetSprite" type="Sprite" parent="Floor"]
+position = Vector2( 0, -95 )
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 170 )
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
-position = Vector2( 1030.98, 610.193 )
-rotation = -1.5708
-__meta__ = {
-"_edit_group_": true
-}
+[node name="NetBody" type="StaticBody2D" parent="Floor/NetSprite"]
+position = Vector2( 0, 95 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-position = Vector2( 407.327, 2.21509 )
-shape = SubResource( 1 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/NetSprite/NetBody"]
+position = Vector2( 0, -95 )
+shape = SubResource( 5 )
 
 [node name="Player" parent="." groups=[
 "player",
 ] instance=ExtResource( 1 )]
 position = Vector2( 238.051, 550.7 )
 
-[node name="Ball" parent="." groups=[
-"ball",
-] instance=ExtResource( 3 )]
-position = Vector2( 237.111, 192.571 )
-script = null
+[node name="Ball" parent="." instance=ExtResource( 3 )]
+position = Vector2( 225.529, 268.799 )
+
+[connection signal="body_entered" from="Ball" to="Ball" method="_on_Ball_body_entered"]
