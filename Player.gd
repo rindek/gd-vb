@@ -2,9 +2,10 @@ extends KinematicBody2D
 
 const RUN_SPEED = 200
 var velocity = Vector2.ZERO
-const GRAVITY = 500
-const JUMP_SPEED = -500
+const GRAVITY = 600
+const JUMP_SPEED = -400
 var jumping = false
+var inertia = 200
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -29,14 +30,14 @@ func _physics_process(delta):
   if !right && !left && !jumping:
     animationState.travel("Idle")
 
+  velocity.y += GRAVITY * delta;
+  
+  velocity = move_and_slide(velocity, Vector2.UP, false, 4, PI/4, false)
+
   if jump and is_on_floor():
     jumping = true
     velocity.y = JUMP_SPEED
     animationState.travel("JumpStart")
-        
-  velocity.y += GRAVITY * delta;
-  
-  velocity = move_and_slide(velocity, Vector2(0, -1))
 
   if jumping and is_on_floor():
     jumping = false

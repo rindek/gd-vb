@@ -1,11 +1,7 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Character_1.png" type="Texture" id=2]
-
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 15.7904
-height = 25.8461
 
 [sub_resource type="Animation" id=2]
 resource_name = "Idle"
@@ -143,7 +139,9 @@ switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=18]
 
-[sub_resource type="AnimationNodeStateMachine" id=19]
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
+[sub_resource type="AnimationNodeStateMachine" id=20]
 states/Idle/node = SubResource( 7 )
 states/Idle/position = Vector2( 452.125, 178.75 )
 states/JumpEnd/node = SubResource( 8 )
@@ -154,21 +152,23 @@ states/RunLeft/node = SubResource( 10 )
 states/RunLeft/position = Vector2( 155.5, 178.375 )
 states/RunRight/node = SubResource( 11 )
 states/RunRight/position = Vector2( 173.25, 51.75 )
-transitions = [ "Idle", "JumpStart", SubResource( 12 ), "JumpEnd", "Idle", SubResource( 13 ), "JumpStart", "JumpEnd", SubResource( 14 ), "Idle", "RunRight", SubResource( 15 ), "RunRight", "Idle", SubResource( 16 ), "Idle", "RunLeft", SubResource( 17 ), "RunLeft", "Idle", SubResource( 18 ) ]
+transitions = [ "Idle", "JumpStart", SubResource( 12 ), "JumpEnd", "Idle", SubResource( 13 ), "JumpStart", "JumpEnd", SubResource( 14 ), "Idle", "RunRight", SubResource( 15 ), "RunRight", "Idle", SubResource( 16 ), "Idle", "RunLeft", SubResource( 17 ), "RunLeft", "Idle", SubResource( 18 ), "JumpEnd", "JumpStart", SubResource( 19 ) ]
 start_node = "Idle"
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=20]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=21]
+
+[sub_resource type="PhysicsMaterial" id=24]
+friction = 0.5
+
+[sub_resource type="CapsuleShape2D" id=22]
+radius = 19.4693
+height = 20.1499
+
+[sub_resource type="RectangleShape2D" id=23]
+extents = Vector2( 30.0493, 10 )
 
 [node name="KinematicBody2D" type="KinematicBody2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -0.75 )
-rotation = 1.5708
-shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -60, -105 )
@@ -176,8 +176,9 @@ scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
 centered = false
 flip_h = true
-vframes = 4
 hframes = 6
+vframes = 4
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 2 )
@@ -187,7 +188,25 @@ anims/RunLeft = SubResource( 5 )
 anims/RunRight = SubResource( 6 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 19 )
+tree_root = SubResource( 20 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 20 )
+parameters/playback = SubResource( 21 )
+
+[node name="StaticBody" type="RigidBody2D" parent="."]
+mode = 3
+physics_material_override = SubResource( 24 )
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody"]
+position = Vector2( 0, -42 )
+rotation = 1.5708
+shape = SubResource( 22 )
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("..")
+node_b = NodePath("../StaticBody")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 4.8994 )
+shape = SubResource( 23 )
