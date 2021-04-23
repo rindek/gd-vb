@@ -11,15 +11,12 @@ onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 
-func _ready():
-  $Sprite.flip_h = false
-
 func _physics_process(delta):
   velocity.x = 0
 
-  var right = Input.is_action_pressed('ui_right')
-  var left = Input.is_action_pressed('ui_left')
-  var jump = Input.is_action_just_pressed("ui_up")
+  var right = Input.is_action_pressed('p2_right')
+  var left = Input.is_action_pressed('p2_left')
+  var jump = Input.is_action_just_pressed("p2_up")
 
   if right:
     velocity.x = RUN_SPEED
@@ -51,11 +48,11 @@ func _physics_process(delta):
     animationState.travel("JumpEnd")
     
 func ball_touched(ball):
-  get_node("/root/World").reset_enemy_touched()
+  get_node("/root/World").reset_player_touched()
   touched_times += 1
-  print("Player: ", touched_times)
+  print("Enemy: ", touched_times)
   if (touched_times > 3):
-    get_node("/root/World").point_to_enemy()
+    get_node("/root/World").point_to_player()
 
     
 func reset_touched():

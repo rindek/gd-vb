@@ -8,5 +8,10 @@ func set_gravity():
 
 
 func _on_RigidBody2D_body_entered(body):
-  if body.is_in_group("player"):
+  $HitSound.play()
+  if body.is_in_group("player") or body.is_in_group("enemy"):
     body.get_parent().ball_touched(self)
+  elif body.is_in_group("player_floor"):
+    get_node("/root/World").point_to_enemy()
+  elif body.is_in_group("enemy_floor"):
+    get_node("/root/World").point_to_player()

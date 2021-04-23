@@ -9,20 +9,33 @@ func _process(delta):
     OS.set_window_fullscreen(!OS.window_fullscreen)
 
 func _ready():
-  spawn_ball()
+  spawn_ball($StartPoint)
   
-func spawn_ball():
+func spawn_ball(point):
   current_ball = BALL.instance()
   $".".add_child(current_ball)
-  current_ball.position = $StartPoint.position
+  current_ball.position = point.position
   
 func despawn_ball():
   current_ball.queue_free()
   
-func reset():
+func reset(point):
   despawn_ball()
-  spawn_ball()
-#
-#    var newball = BALL.instance()
-#    get_tree().get_root().add_child(newball)
-#    newball.position = get_tree().get_root().get_node("World/StartPoint").position
+  spawn_ball(point)
+  $Player.reset_touched()
+  $Enemy.reset_touched()
+  $BallReset.play()
+
+func point_to_enemy():
+  $EnemyPoints.inc()
+  reset($StartPointEnemy)
+  
+func point_to_player():
+  $PlayerPoints.inc()
+  reset($StartPoint)
+
+func reset_enemy_touched():
+  $Enemy.reset_touched()
+
+func reset_player_touched():
+  $Player.reset_touched()
