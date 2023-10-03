@@ -7,7 +7,7 @@ func _ready():
   set_point()
 
 func set_point():
-  self.text = String(points)
+  self.text = var_to_str(points)
 
 func inc():
   points += 1

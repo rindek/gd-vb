@@ -4,15 +4,15 @@ const BALL = preload("Ball.tscn")
 var current_ball
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
   if Input.is_action_just_pressed("toggle_fullscreen"):
-    OS.set_window_fullscreen(!OS.window_fullscreen)
+    get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (!((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN))) else Window.MODE_WINDOWED
 
 func _ready():
   spawn_ball($StartPoint)
   
 func spawn_ball(point):
-  current_ball = BALL.instance()
+  current_ball = BALL.instantiate()
   $".".add_child(current_ball)
   current_ball.position = point.position
   

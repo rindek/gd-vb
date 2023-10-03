@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-const DEFAULT_GRAVITY = 3
+const DEFAULT_GRAVITY = 0.4
 
 
 func set_gravity():

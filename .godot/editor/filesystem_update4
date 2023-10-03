@@ -1,0 +1,11 @@
+res://default_env.tres
+res://Main.tscn
+res://Main.gd
+res://Player.gd
+res://Points.gd
+res://Enemy.gd
+res://Player.tscn
+res://Enemy.tscn
+res://Ball.tscn
+res://Wall.tscn
+res://Ball.gd
